@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Wrapper for a Tank Prefab.
+/// Should act on the rigidBody property 
+/// rather than the object transform for best result
+/// </summary>
 public class UIControlTank : Tank
 {
     // ui
@@ -47,24 +52,24 @@ public class UIControlTank : Tank
 
     public override void MoveTankForward()
     {
-        Vector2 distance = transform.right * movementSpeed * Time.fixedDeltaTime;
-        rb.MovePosition((Vector2)transform.position + distance);
+        Vector2 distance = rigidBody.transform.right * movementSpeed * Time.fixedDeltaTime;
+        rigidBody.MovePosition((Vector2)rigidBody.transform.position + distance);
     }
 
     public override void MoveTankBackward()
     {
-        Vector2 distance = -transform.right * movementSpeed * Time.fixedDeltaTime;
-        rb.MovePosition((Vector2)transform.position + distance);
+        Vector2 distance = -rigidBody.transform.right * movementSpeed * Time.fixedDeltaTime;
+        rigidBody.MovePosition((Vector2)rigidBody.transform.position + distance);
     }
 
     public override void RotateTurretClockwise()
     {
-        transform.RotateAround(hullRenderer.bounds.center, Vector3.back, rotationSpeed);
+        rigidBody.transform.RotateAround(hullRenderer.bounds.center, Vector3.back, rotationSpeed);
     }
 
     public override void RotateTurretCounterClockwise()
     {
-        transform.RotateAround(hullRenderer.bounds.center, Vector3.back, -rotationSpeed);
+        rigidBody.transform.RotateAround(hullRenderer.bounds.center, Vector3.back, -rotationSpeed);
     }
 
     /// <summary>
@@ -77,7 +82,7 @@ public class UIControlTank : Tank
         GameObject shell = roundShellPool.GetPoolObj(
             barrelEntrance.transform.position, hull.transform.rotation);
         // recall that the direction the turret faces is the right side of the prefab
-        shell.GetComponent<Projectile>().Move(transform.right.normalized);
+        shell.GetComponent<Projectile>().Move(rigidBody.transform.right.normalized);
 
         StartCoroutine(Reload());
     }

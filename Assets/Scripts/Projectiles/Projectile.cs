@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// The time a projectile has in seconds before it is removed from the scene.
     /// </summary>
-    public FloatData timeToliveData;
+    public FloatData timeToLiveData;
 
     public void Move(Vector2 newDirection)
     {
@@ -28,6 +28,7 @@ public class Projectile : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
+        // since Tank is wrapped inside another GameObject, has to check parent
         Tank tank = collision.gameObject.GetComponent<Tank>();
         if (tank != null)
         {
@@ -38,7 +39,7 @@ public class Projectile : MonoBehaviour
 
     protected IEnumerator TimeToLiveEnds()
     {
-        yield return new WaitForSeconds(timeToliveData.value);
+        yield return new WaitForSeconds(timeToLiveData.value);
         Remove();
     }
 

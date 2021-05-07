@@ -8,7 +8,7 @@ public abstract class Tank : MonoBehaviour
     public GameObject hull;
     protected Renderer hullRenderer;
     public GameObject barrelEntrance;
-    protected Rigidbody2D rb;
+    public Rigidbody2D rigidBody;
 
     // stats
     public const int movementSpeed = 5;
@@ -23,7 +23,6 @@ public abstract class Tank : MonoBehaviour
 
     protected void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         hullRenderer = hull.GetComponent<Renderer>();
     }
 
