@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -7002486633116246916}
   - component: {fileID: 8116861358349295426}
   - component: {fileID: 905946773516708279}
-  - component: {fileID: 893048826977239879}
+  - component: {fileID: 8842756195464449422}
   m_Layer: 0
-  m_Name: RedTank
+  m_Name: BlueTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9333513, y: 0.349957}
   m_EdgeRadius: 0
---- !u!114 &893048826977239879
+--- !u!114 &8842756195464449422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,17 +170,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 320497140414974318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d50cad198efccb48832649889657389, type: 3}
+  m_Script: {fileID: 11500000, guid: b8aae02f3cc2ea04f97d9891039c606c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hull: {fileID: 3931484969960565127}
   barrelEntrance: {fileID: 4389588670565547337}
   roundShellPool: {fileID: 11400000, guid: d02349f9aad85994ca99422ca287aa2b, type: 2}
-  forwardBtn: {fileID: 0}
-  backwardBtn: {fileID: 0}
-  leftRotateBtn: {fileID: 0}
-  rightRotateBtn: {fileID: 0}
-  fireBtn: {fileID: 0}
 --- !u!1 &3931484969960565127
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +248,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 07eb4fe3f15a73045b6e2c73719486f2, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.24705882, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -365,7 +360,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 775c5fd869cb86540b15fb7f27063085, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.2466731, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

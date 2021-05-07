@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     /// <summary>
     /// Direction the projectile is flying.
@@ -10,42 +10,20 @@ public abstract class Projectile : MonoBehaviour
     protected Vector2 direction;
 
     /// <summary>
-    /// The GameObject's rigid body.
-    /// </summary>
-    protected Rigidbody2D rigidBody;
-
-    /// <summary>
     /// Speed of the projectile.
     /// </summary>
-    protected float speed;
+    public FloatData speedData;
 
     /// <summary>
     /// The time a projectile has in seconds before it is removed from the scene.
     /// </summary>
-    protected float timeToLive;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        // only set if there's nothing
-        if (direction == null)
-        {
-            direction = new Vector2(0, 0);
-        }
-        rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        InitDetails();
-        StartCoroutine(TimeToLiveEnds());
-    }
-
-    /// <summary>
-    /// Set the speed and timer here.
-    /// </summary>
-    protected abstract void InitDetails();
+    public FloatData timeToliveData;
 
     public void Move(Vector2 newDirection)
     {
         direction = newDirection;
-        rigidBody.velocity = direction * speed;
+        gameObject.GetComponent<Rigidbody2D>().velocity = direction * speedData.value;
+        StartCoroutine(TimeToLiveEnds());
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -60,7 +38,7 @@ public abstract class Projectile : MonoBehaviour
 
     protected IEnumerator TimeToLiveEnds()
     {
-        yield return new WaitForSeconds(timeToLive);
+        yield return new WaitForSeconds(timeToliveData.value);
         Remove();
     }
 
@@ -69,10 +47,7 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     protected void Remove()
     {
-        // so we don't have null pointer if we call remove multiple times
-        if (gameObject)
-        {
-            Destroy(gameObject);
-        }
+        // return projectile to its pool
+        gameObject.SetActive(false);
     }
 }

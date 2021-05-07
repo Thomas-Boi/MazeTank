@@ -1,39 +1,24 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tank : MonoBehaviour
+public class UIControlTank : Tank
 {
-    // tank parts
-    public GameObject hull;
-    private Renderer hullRenderer;
-    public GameObject barrelEntrance;
-    private Rigidbody2D rb;
-
-    // stats
-    public const int movementSpeed = 5;
-    public const int rotationSpeed = 2;
-    private const int reloadTime = 3; 
-
-    // shell
-    public GameObject roundShell;
-
     // ui
     public PressedDownObject forwardBtn;
     public PressedDownObject backwardBtn;
     public PressedDownObject leftRotateBtn;
     public PressedDownObject rightRotateBtn;
     public Button fireBtn;
+    private Text fireBtnText;
 
-    // states
-    private bool isReloading;
-
-    protected void Start()
+    // Start is called before the first frame update
+    new void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        hullRenderer = hull.GetComponent<Renderer>();
+        base.Start();
         fireBtn.onClick.AddListener(Fire);
+        fireBtnText = fireBtn.GetComponentInChildren<Text>();
     }
 
     private void FixedUpdate()
@@ -60,24 +45,24 @@ public class Tank : MonoBehaviour
 
     }
 
-    public void MoveTankForward()
+    public override void MoveTankForward()
     {
         Vector2 distance = transform.right * movementSpeed * Time.fixedDeltaTime;
-        rb.MovePosition((Vector2) transform.position + distance);
+        rb.MovePosition((Vector2)transform.position + distance);
     }
 
-    public void MoveTankBackward()
+    public override void MoveTankBackward()
     {
         Vector2 distance = -transform.right * movementSpeed * Time.fixedDeltaTime;
         rb.MovePosition((Vector2)transform.position + distance);
     }
 
-    void RotateTurretClockwise()
+    public override void RotateTurretClockwise()
     {
         transform.RotateAround(hullRenderer.bounds.center, Vector3.back, rotationSpeed);
     }
 
-    void RotateTurretCounterClockwise()
+    public override void RotateTurretCounterClockwise()
     {
         transform.RotateAround(hullRenderer.bounds.center, Vector3.back, -rotationSpeed);
     }
@@ -85,29 +70,24 @@ public class Tank : MonoBehaviour
     /// <summary>
     /// Fire the projectile.
     /// </summary>
-    public void Fire()
+    public override void Fire()
     {
         if (isReloading) return;
 
-        GameObject shell = Instantiate(roundShell, barrelEntrance.transform.position, hull.transform.rotation);
+        GameObject shell = roundShellPool.GetPoolObj(
+            barrelEntrance.transform.position, hull.transform.rotation);
         // recall that the direction the turret faces is the right side of the prefab
         shell.GetComponent<Projectile>().Move(transform.right.normalized);
 
         StartCoroutine(Reload());
     }
 
-    /// <summary>
-    /// Let the tank knows that it has been hit.
-    /// </summary>
-    public void GotHit()
-    {
-        Destroy(gameObject);
-    }
-
-    private IEnumerator Reload()
+    protected override IEnumerator Reload()
     {
         isReloading = true;
+        fireBtnText.text = "Reloading";
         yield return new WaitForSeconds(reloadTime);
         isReloading = false;
+        fireBtnText.text = "Fire";
     }
 }
