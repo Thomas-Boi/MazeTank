@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7aa85c3d7f844844a8b6cba5cc819ff, type: 3}
+  m_Script: {fileID: 11500000, guid: c5a3c6621fda38242a85a0459e7f1cc1, type: 3}
   m_Name: RoundShellPool
   m_EditorClassIdentifier: 
   prefab: {fileID: 6520640255259344150, guid: 2615c6f157725834a990a6724daddd48, type: 3}
-  pool: []
-  count: 0
+  count: {fileID: 11400000, guid: 0b904583f9e746d4fa1aa94192768e4a, type: 2}
+  emptyIdentityObject: {fileID: 1793370893426190534, guid: fa8bcaee88ecaa840a3cf1e075df8a5b, type: 3}

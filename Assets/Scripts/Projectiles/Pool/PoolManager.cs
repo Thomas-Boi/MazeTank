@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Mirror;
 
-public class PoolManager : MonoBehaviour
+public class PoolManager : NetworkBehaviour
 {
-    public RoundShellPool roundShellPool;
+    public MirrorPool roundShellPool;
 
     /// <summary>
     /// Initialize the pools before anything access it.
     /// </summary>
-    private void Awake()
+    public override void OnStartServer()
     {
-        roundShellPool.FillPool();
+        roundShellPool.CmdFillPool();
     }
 }

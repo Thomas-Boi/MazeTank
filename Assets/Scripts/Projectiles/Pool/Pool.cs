@@ -1,35 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public abstract class Pool : ScriptableObject
+[CreateAssetMenu(menuName = "Pools/Normal Pool")]
+public class Pool : ScriptableObject
 {
+    // the prefab that will be instantiated
     public GameObject prefab;
-    public List<GameObject> pool;
-    public int count;
 
-    // parent of the objects in the scene.
-    private Transform parent; 
+    // keeps track of the objects
+    protected List<GameObject> pool;
+
+    // holds the size of the pool
+    public FloatDataSO count;
 
     public void FillPool()
     {
-        InitCount();
         pool = new List<GameObject>();
-        parent = new GameObject(name).transform;
+        // make a new object in the scene to store all the pooled objects
+        GameObject parent = new GameObject(name);
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count.Value; i++)
         {
-            GameObject obj = Instantiate(prefab, parent);
+            GameObject obj = Instantiate(prefab, parent.transform);
             obj.SetActive(false);
             pool.Add(obj);
         }
     }
-
-    /// <summary>
-    /// Init the pool by setting the pool count.
-    /// Subclasses should set it to their preferred pool count.
-    /// </summary>
-    protected abstract void InitCount();
 
     /// <summary>
     /// Get a pool object and give it a position and rotation.

@@ -21,7 +21,7 @@ public class Tank : NetworkBehaviour
     public FloatDataSO reloadTime;
 
     // shell
-    public RoundShellPool roundShellPool;
+    public Pool roundShellPool;
 
     // states
     private bool isReloading;
